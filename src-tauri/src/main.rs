@@ -18,6 +18,7 @@ use tauri::Manager;
 struct AppState {
     db: Mutex<Connection>,
     current_user_role: Mutex<Option<String>>,
+    db_path: Mutex<String>,
 }
 
 #[derive(Serialize)]
@@ -244,6 +245,7 @@ fn main() {
         .manage(AppState {
             db: Mutex::new(db),
             current_user_role: Mutex::new(None),
+            db_path: Mutex::new("data.db".to_string()),
         })
         .setup(move |app| {
             if !has_license {
